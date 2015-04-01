@@ -1,0 +1,17 @@
+{
+    "development": {
+        "port": 80,
+        "minify": false,
+        "logging": true
+    },
+    "test": {
+        "port": 80,
+        "minify": true,
+        "logging": false
+    },
+    "production": {
+        "port": 80,
+        "minify": true,
+        "logging": false
+    }
+}

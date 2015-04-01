@@ -1,6 +1,7 @@
 # Market Trade Processor
 
 Welcome to the Market Trade Processor project!
+
 It is my test project where we are going to build distributed system which is able to process a huge number of messages in real time.
 
 # An idea behind
@@ -32,6 +33,10 @@ The system has to process these messages and display results in UI with a realti
 
 ## Security notes
 
-1. Redis is designed to be accessed by trusted clients inside trusted environments ([proof link](http://redis.io/topics/security)). This means that usually it is not a good idea to expose the Redis instance directly to the internet. Thats why "Storage subsystem" should be inside the private network, e.g. like [Amazon Virtual Private Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html).
+1. Redis is designed to be accessed by trusted clients inside trusted environments ([proof](http://redis.io/topics/security)). This means that usually it is not a good idea to expose the Redis instance directly to the internet. Thats why "Storage subsystem" should be inside the private network, e.g. like [Amazon Virtual Private Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html).
 
 2. Unfortunately I have no valid (not self signed) SSL certificates. Thats why the "Message Consumption" entry point is not secured as well as the "Frontend UI" entry point.
+
+## Subsystems
+
+* [Frontend](frontend)

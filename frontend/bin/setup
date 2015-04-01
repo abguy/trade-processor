@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var fs = require('fs');
+var browserify = require('browserify');
+var UglifyJS = require('uglify-js');
+
+var env = process.env.NODE_ENV || "production";
+var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+
+var bundleFile = path.join(__dirname, '..', 'public', 'js', 'frontend.js');
+
+var bundleFileStream = fs.createWriteStream(bundleFile, 'utf8');
+if (config.minify) {
+    bundleFileStream.on('finish', function() {
+        fs.writeFile(
+            bundleFile,
+            UglifyJS.minify(bundleFile).code,
+            function(err) {
+                if(err) {
+                    return console.log(err);
+                }
+
+                console.log('Compressing of bundle JS files succeeded!');
+            }
+        );
+    });
+}
+
+browserify(path.join(__dirname, '..', 'frontend.js'))
+    .bundle()
+    .on('end', function () {
+        console.log('Build of bundle JS files succeeded!');
+    })
+    .on('error', console.error)
+    .pipe(bundleFileStream);
