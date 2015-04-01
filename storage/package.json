@@ -3,15 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "test": "node node_modules/jasmine/bin/jasmine.js"
+    "reset": "node ./bin/reset"
   },
   "author": "Alexey Belyaev",
   "dependencies": {
     "debug": "~2.1.1",
     "hiredis": "~0.2.0",
     "redis": "~0.12.1"
-  },
-  "devDependencies": {
-    "jasmine": "~2.2"
   }
 }

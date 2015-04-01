@@ -99,18 +99,15 @@ Then execute:
 If your server is configured properly you should see something like
 
 ~~~
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 Server: nginx
-Date: Wed, 01 Apr 2015 08:17:39 GMT
-Content-Type: text/plain
-Transfer-Encoding: chunked
+Date: Wed, 01 Apr 2015 12:08:20 GMT
 Connection: keep-alive
 
-Hello World
 ~~~
 
-# How to test storage application
+# Clear storage data
 
-Before test the application please check "config/config.json", then execute:
+In order to remove all data from the storage:
 
-    npm test
+    npm run reset

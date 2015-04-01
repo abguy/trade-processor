@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var redis = require('redis');
+
+var env = process.env.NODE_ENV || 'production';
+var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+
+var redisPort = parseInt(config.redisPort, 10);
+var client = redis.createClient(redisPort, config.redisHost);
+client.on('error', function (err) {
+    console.log('Redis connection error: ' + err);
+});
+
+client.multi()
+    .flushall()
+    .publish(config.redisChannel, 'reset')
+    .exec(config.logging ? redis.print : null);
+
+client.quit();
