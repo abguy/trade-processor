@@ -14,7 +14,7 @@ Before start of the application please check "config/config.json", then execute:
 
 ## Some Notes
 
-You shouldn't use Node.js server directly in production. Please check something like [Nginx](http://nginx.org/) or [forever project](https://github.com/foreverjs/forever) before lunch.
+You shouldn't use Node.js server directly in production. Please check something like [Nginx](http://nginx.org/), [PM2](https://github.com/Unitech/pm2) or [forever project](https://github.com/foreverjs/forever) before lunch.
 
 # How to test
 

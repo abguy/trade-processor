@@ -1,0 +1,16 @@
+{
+  "name": "trade-processor-storage",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "node node_modules/jasmine/bin/jasmine.js"
+  },
+  "author": "Alexey Belyaev",
+  "dependencies": {
+    "debug": "~2.1.1",
+    "redis": "~0.12.1"
+  },
+  "devDependencies": {
+    "jasmine": "~2.2"
+  }
+}

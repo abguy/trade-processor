@@ -2,7 +2,7 @@
 
 Welcome to the Market Trade Processor project!
 
-It is my test project where we are going to build distributed system which is able to process a huge number of messages in real time.
+It is a test project where we are going to build distributed system which is able to process a huge number of messages in real time.
 
 # An idea behind
 
@@ -27,7 +27,7 @@ The system has to process these messages and display results in UI with a realti
 
 # Implementation details
 
-## Overal architecture
+## Overall architecture
 
 ![Market Trade Processor architecture](http://abelyaev.net/img/trade-processor-architecture.png)
 
@@ -37,6 +37,9 @@ The system has to process these messages and display results in UI with a realti
 
 2. Unfortunately I have no valid (not self signed) SSL certificates. Thats why the "Message Consumption" entry point is not secured as well as the "Frontend UI" entry point.
 
+3. All other interactions between components have to be secured with SSL.
+
 ## Subsystems
 
 * [Frontend](frontend)
+* [Storage RESTful endpoint](storage)
