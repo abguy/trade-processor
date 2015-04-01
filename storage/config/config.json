@@ -1,0 +1,29 @@
+{
+    "development": {
+        "host": "127.0.0.1",
+        "port": 9080,
+        "redisHost": "127.0.0.1",
+        "redisPort": 6379,
+        "redisChannel": "storage",
+        "lastRatesNumber": 1000,
+        "logging": true
+    },
+    "test": {
+        "host": "127.0.0.1",
+        "port": 9080,
+        "redisHost": "127.0.0.1",
+        "redisPort": 6379,
+        "redisChannel": "storage",
+        "lastRatesNumber": 1000,
+        "logging": false
+    },
+    "production": {
+        "host": "127.0.0.1",
+        "port": 9080,
+        "redisHost": "127.0.0.1",
+        "redisPort": 6379,
+        "redisChannel": "storage",
+        "lastRatesNumber": 1000,
+        "logging": false
+    }
+}
