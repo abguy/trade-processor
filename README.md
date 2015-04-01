@@ -23,3 +23,15 @@ Trade messages will be POST’ed to a single endpoint and will take the JSON form 
 ~~~
 
 The system has to process these messages and display results in UI with a realtime visualisation of messages being processed.
+
+# Implementation details
+
+## Overal architecture
+
+![Market Trade Processor architecture](http://abelyaev.net/img/trade-processor-architecture.png)
+
+## Security notes
+
+1. Redis is designed to be accessed by trusted clients inside trusted environments ([proof link](http://redis.io/topics/security)). This means that usually it is not a good idea to expose the Redis instance directly to the internet. Thats why "Storage subsystem" should be inside the private network, e.g. like [Amazon Virtual Private Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html).
+
+2. Unfortunately I have no valid (not self signed) SSL certificates. Thats why the "Message Consumption" entry point is not secured as well as the "Frontend UI" entry point.
