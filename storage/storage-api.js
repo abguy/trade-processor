@@ -78,7 +78,7 @@ http.createServer(function (request, response) {
                 multi.ltrim('rates:' + source + ':' + target, 0, lastRatesNumber - 1);
             }
 
-            multi.publish(config.redisChannel, 'New data');
+            multi.publish(config.redisChannel, 'data');
             multi.exec(config.logging ? redis.print : null);
         });
     }

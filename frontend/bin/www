@@ -1,84 +1,170 @@
 #!/usr/bin/env node
 
-var app = require('../app');
-var debug = require('debug')('catalog:server');
-var http = require('http');
+var path = require('path');
+var redis = require('redis');
+var _ = require('underscore');
 
-var env = process.env.NODE_ENV || "development";
-var config = require(__dirname + '/../config/config.json')[env];
-var port = normalizePort(config.port);
-app.set('port', port);
+var env = process.env.NODE_ENV || 'production';
+var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 
-/**
- * Create HTTP server.
- */
+var debugModule = require('debug');
+config.logging || debugModule.enable('socket');
+var debug = debugModule('socket');
 
-var server = http.createServer(app);
+var socketPort = parseInt(config.socketPort, 10);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+var redisPort = parseInt(config.redisPort, 10);
+var redisClient = redis.createClient(redisPort, config.redisHost);
+redisClient.on('error', function (err) {
+    console.log('Redis connection error: ' + err);
+});
+var redisSubscriber = redis.createClient(redisPort, config.redisHost);
+redisSubscriber.on('error', function (err) {
+    console.log('Redis subscriber error: ' + err);
+});
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+var clientsData = {};
 
-/**
- * Normalize a port into a number, string, or false.
- */
+var io = require('socket.io')(socketPort);
+io.on('connection', function(socket) {
+    debug('A user connected %s', socket.id);
+    clientsData[socket.id] = new StorageData();
+    loadData(function(data) {
+        updateSocketData(socket, data, clientsData[socket.id]);
+    });
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+    socket.on('disconnect', function() {
+        delete clientsData[socket.id];
+        debug('A user disconnected %s', socket.id);
+    });
+});
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+var StorageData = function() {
+    this.batch = 0;
+    this.messages = 0;
+    this.currencies = [];
+    this.countries = {};
+    this.flows = [];
+};
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+function loadData(onLoad) {
+    redisClient.multi()
+        .get('batch')
+        .get('messages')
+        .smembers('currencies')
+        .hgetall('countries')
+        .hgetall('flows')
+        .exec(function (err, replies) {
+            if (err) {
+                console.log('Unable to load data from redis: ' + err);
+                return;
+            }
 
-  return false;
+            var data = new StorageData();
+
+            data.batch = parseInt(replies[0], 10);
+            data.messages = parseInt(replies[1], 10);
+            data.currencies = replies[2];
+
+            var countries = replies[3];
+            for (var country in countries) {
+                if (!countries.hasOwnProperty(country)) {
+                    continue;
+                }
+
+                countries[country] = parseInt(countries[country], 10);
+            }
+            data.countries = countries;
+
+            var flows = replies[4];
+            for (var flowKey in flows) {
+                if (!flows.hasOwnProperty(flowKey)) {
+                    continue;
+                }
+
+                flows[flowKey] = parseFloat(flows[flowKey], 10);
+            }
+            data.flows = flows;
+
+            onLoad(data);
+        });
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
+function updateSocketData(socket, newData, initialData) {
+    var sendData = new StorageData();
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    var oldBatch = initialData.batch;
+    ['batch', 'messages', 'currencies'].forEach(function(key) {
+        sendData[key] = initialData[key] = newData[key];
+    });
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+    sendData.countries = _.omit(newData.countries, function(value, country) {
+        return initialData.countries[country] === value;
+    });
+    initialData.countries = newData.countries;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+    var flowsToSend = _.omit(newData.flows, function(value, flowKey) {
+        return initialData.flows[flowKey] === value;
+    });
+    initialData.flows = newData.flows;
+    for (flowKey in flowsToSend) {
+        if (!flowsToSend.hasOwnProperty(flowKey)) {
+            continue;
+        }
+
+        var info = flowKey.split(':');
+        if (info.length < 3) {
+            console.log('Wrong flow key: ' + flowKey);
+            continue;
+        }
+        if ('to' == info[1]) {
+            // We will fetch it by the ':from:' key
+            continue;
+        }
+        var toKey = info[0] + ':to:' + info[2];
+        if (!newData.flows.hasOwnProperty(toKey)) {
+            console.log('Unable to find flow  with key: ' + toKey);
+            continue;
+        }
+        sendData.flows.push({
+            source: info[0],
+            target: info[2],
+            from: newData.flows[flowKey],
+            to: newData.flows[toKey]
+        });
+    }
+
+    var fromBatch = oldBatch % config.lastRatesNumber;
+    ['GBP', 'EUR', 'CAD', 'AUD'].forEach(function(currency) {
+        if (!_.contains(initialData.currencies, currency)) {
+            return;
+        }
+        var key = 'rates:' + currency + ':EUR';
+        redisClient.lrange(key, fromBatch, -1, function (err, rates) {
+            if (rates.length < 1) {
+                return;
+            }
+            debug('Send rates to %s', socket.id);
+            socket.emit('message', { "rates": rates });
+        });
+    });
+
+    debug('Send data to %s', socket.id);
+    debug(sendData);
+    socket.emit('message', sendData);
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+redisSubscriber.on('message', _.throttle(function (channel, message) {
+    if ('reset' == message) {
+        // todo@ reset data
+        return;
+    }
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+    loadData(function(data) {
+        io.nsps['/'].sockets.forEach(function(socket) {
+            updateSocketData(socket, data, clientsData[socket.id]);
+        });
+    });
+}, config.minSockeUpdateDelay, { trailing: true }));
+
+redisSubscriber.subscribe(config.redisChannel);
