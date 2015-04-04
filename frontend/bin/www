@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV || 'production';
 var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 
 var debugModule = require('debug');
-config.logging || debugModule.enable('socket');
+config.logging && debugModule.enable('socket');
 var debug = debugModule('socket');
 
 var socketPort = parseInt(config.socketPort, 10);
@@ -134,13 +134,15 @@ function updateSocketData(socket, newData, initialData) {
         });
     }
 
-    var fromBatch = oldBatch % config.lastRatesNumber;
+    var fromRate = (config.lastRatesNumber > newData.batch)
+        ? oldBatch
+        : (config.lastRatesNumber > newData.batch - oldBatch ? 0 : config.lastRatesNumber - newData.batch + oldBatch);
     ['GBP', 'EUR', 'CAD', 'AUD'].forEach(function(currency) {
         if (!_.contains(initialData.currencies, currency)) {
             return;
         }
         var key = 'rates:' + currency + ':EUR';
-        redisClient.lrange(key, fromBatch, -1, function (err, rates) {
+        redisClient.lrange(key, fromRate, -1, function (err, rates) {
             if (rates.length < 1) {
                 return;
             }
@@ -156,7 +158,12 @@ function updateSocketData(socket, newData, initialData) {
 
 redisSubscriber.on('message', _.throttle(function (channel, message) {
     if ('reset' == message) {
-        // todo@ reset data
+        io.nsps['/'].sockets.forEach(function(socket) {
+            delete clientsData[socket.id];
+            clientsData[socket.id] = new StorageData();
+            debug('Reset %s', socket.id);
+            socket.emit('reset');
+        });
         return;
     }
 

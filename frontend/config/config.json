@@ -28,7 +28,7 @@
         "redisPort": 6379,
         "redisChannel": "storage",
         "lastRatesNumber": 1000,
-        "minSockeUpdateDelay": 30000,
+        "minSockeUpdateDelay": 1000,
         "minify": true,
         "logging": false
     }

@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'production';
 var config = require('./config/config.json')[env];
 
 var debugModule = require('debug');
-config.logging || debugModule.enable('socket');
+config.logging && debugModule.enable('socket');
 var debug = debugModule('socket');
 
 $(function() {
@@ -17,8 +17,12 @@ $(function() {
         debug('Socket connected!');
     });
 
-    socket.on('message', function (message) {
-        debug(message);
+    socket.on('message', function (data) {
+        debug(data);
+    });
+
+    socket.on('reset', function (data) {
+        debug('Reset');
     });
 
     var FlowGraph = require('./views/flow.js');
