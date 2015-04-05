@@ -11,6 +11,7 @@ config.logging && debugModule.enable('socket');
 var debug = debugModule('socket');
 
 $(function() {
+    var GeneralView = require('./views/general.js');
     var FlowGraph = require('./views/flow.js');
     var CurrenciesStore = require('./stores/currencies.js');
 
@@ -31,10 +32,15 @@ $(function() {
         // todo@ Implement it
     });
 
+    var generalView =  new GeneralView({
+        model: currenciesStore
+    });
+    $('header').append(generalView.render().el);
+
     var flowGraph = new FlowGraph({
         collection: currenciesStore.flowCollection,
         title: 'Currencies flow graph',
-        width: $(window).width(),
+        width: Math.max($(window).width() - 50, 500),
         height: 600
     });
     $('body').append(flowGraph.render().el);

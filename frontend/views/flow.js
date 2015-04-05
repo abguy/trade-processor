@@ -3,7 +3,6 @@
 var d3 = require('d3');
 var $ = require('jquery');
 var Backbone = require('backbone');
-var _ = require('underscore');
 Backbone.$ = $;
 
 var FlowGraph = Backbone.View.extend({
