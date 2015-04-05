@@ -28,6 +28,7 @@ var CurrenciesStore = function() {
 
 _.extend(CurrenciesStore.prototype, Backbone.Events, {
     initialize: function(storeData) {
+        storeData = storeData || {};
         this.flowCollection = new CurrencyFlowsCollection(storeData.flows || []);
     }
 });
