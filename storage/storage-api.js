@@ -4,8 +4,12 @@ var redis = require('redis');
 
 var env = process.env.NODE_ENV || 'production';
 var config = require(path.join(__dirname, 'config', 'config.json'))[env];
-var port = parseInt(config.port, 10);
 
+var debugModule = require('debug');
+config.logging && debugModule.enable('storage');
+var debug = debugModule('storage');
+
+var port = parseInt(config.port, 10);
 var lastRatesNumber = parseInt(config.lastRatesNumber, 10);
 
 var redisPort = parseInt(config.redisPort, 10);
@@ -32,6 +36,7 @@ http.createServer(function (request, response) {
                 try {
                     return JSON.parse(str);
                 } catch (ex) {
+                    debug('Invalid JSON passed: %s', str);
                     return null;
                 }
             }
