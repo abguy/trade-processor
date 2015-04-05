@@ -23,9 +23,7 @@ $(function() {
 
     socket.on('message', function (data) {
         debug(data);
-        if (data.flows) {
-            currenciesStore.flowCollection.add(data.flows);
-        }
+        currenciesStore.updateData(data);
     });
 
     socket.on('reset', function (data) {
