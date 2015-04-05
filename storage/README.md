@@ -2,7 +2,7 @@
 
 Welcome to the Market Trade Processor Storage subproject!
 
-This subproject is a part of [Market Trade Processor project](..).
+This subproject is a part of [Market Trade Processor project](https://github.com/abguy/trade-processor).
 
 # How to setup
 
