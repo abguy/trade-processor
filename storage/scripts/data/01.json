@@ -1,0 +1,8 @@
+{
+    "messages": 10,
+    "countries": {"FR": 2, "DE": 3, "GB": 5},
+    "flows": [
+        {"source": "EUR", "target": "GBP", "from": 1000, "to": 747.10, "rate": 0.7471},
+        {"source": "GBP", "target": "EUR", "from": 747.10, "to": 1000, "rate": 1.3385}
+    ]
+}

@@ -106,6 +106,13 @@ Connection: keep-alive
 
 ~~~
 
+# How to test
+
+I didn't prepare scripts for storage automatic testing. Although you can use my bash script form `scripts` directory for manual testing.
+
+    scripts/exec.sh
+    scripts/exec.sh --force
+
 # Clear storage data
 
 In order to remove all data from the storage:

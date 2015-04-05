@@ -1,0 +1,8 @@
+{
+    "messages": 3,
+    "countries": {"AU": 2, "RU": 1},
+    "flows": [
+        {"source": "AUD", "target": "USD", "from": 1000, "to": 777.53, "rate": 0.77753},
+        {"source": "RUR", "target": "EUR", "from": 6221.8, "to": 100, "rate": 0.01607251920666045195924009129191}
+    ]
+}
