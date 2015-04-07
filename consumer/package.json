@@ -1,0 +1,14 @@
+{
+  "name": "trade-processor-consumer",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {},
+  "author": "Alexey Belyaev",
+  "engines": {
+    "node" : ">=0.12.2"
+  },
+  "dependencies": {
+    "debug": "~2.1.1",
+    "amqplib": "~0.3.2"
+  }
+}

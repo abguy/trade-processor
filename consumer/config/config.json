@@ -1,0 +1,47 @@
+{
+    "development": {
+        "port": 80,
+        "rabbitConnectionsPerWorker": 2,
+        "rabbitConnectionHeartbeat": 1000,
+        "rabbitServer": "rabbit.abelyaev.net",
+        "rabbitPort": 5671,
+        "rabbitUser": "consumer",
+        "rabbitPassword": "password",
+        "rabbitVhost": "/consumer",
+        "rabbitClientCert": "cert.pem",
+        "rabbitClientKey": "key.pem",
+        "rabbitClientKeyPassPhrase": "PassPhrase",
+        "rabbitCaCert": "cacert.pem",
+        "logging": true
+    },
+    "test": {
+        "port": 80,
+        "rabbitConnectionsPerWorker": 2,
+        "rabbitConnectionHeartbeat": 1000,
+        "rabbitServer": "rabbit.abelyaev.net",
+        "rabbitPort": 5671,
+        "rabbitUser": "consumer",
+        "rabbitPassword": "password",
+        "rabbitVhost": "/consumer",
+        "rabbitClientCert": "cert.pem",
+        "rabbitClientKey": "key.pem",
+        "rabbitClientKeyPassPhrase": "PassPhrase",
+        "rabbitCaCert": "cacert.pem",
+        "logging": false
+    },
+    "production": {
+        "port": 80,
+        "rabbitConnectionsPerWorker": 100,
+        "rabbitConnectionHeartbeat": 1000,
+        "rabbitServer": "rabbit.abelyaev.net",
+        "rabbitPort": 5671,
+        "rabbitUser": "consumer",
+        "rabbitPassword": "password",
+        "rabbitVhost": "/consumer",
+        "rabbitClientCert": "cert.pem",
+        "rabbitClientKey": "key.pem",
+        "rabbitClientKeyPassPhrase": "PassPhrase",
+        "rabbitCaCert": "cacert.pem",
+        "logging": false
+    }
+}
