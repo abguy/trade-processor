@@ -18,6 +18,7 @@ Before start of the application please:
 * check "config/config.json";
 * execute:
 
+
     npm install pm2 -g
     npm install
     pm2 start consumer.js
