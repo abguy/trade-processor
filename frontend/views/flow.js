@@ -36,9 +36,9 @@ var FlowGraph = Backbone.View.extend({
 
         this.force = d3.layout.force()
             .gravity(.05)
-            .distance(240)
+            .distance(360)
             .size([this.width, this.height])
-            .linkDistance(240)
+            .linkDistance(360)
             .charge(-300);
         this.nodes = this.force.nodes();
         this.links = this.force.links();
