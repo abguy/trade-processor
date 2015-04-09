@@ -27,8 +27,8 @@ var MapView = Backbone.View.extend({
     },
 
     /**
-     * Renders graph
-     * @returns {FlowGraph}
+     * Renders map
+     * @return MapView
      */
     render: function () {
         this.$el.empty();

@@ -17,8 +17,8 @@ var GeneralView = Backbone.View.extend({
     },
 
     /**
-     * Renders graph
-     * @returns {FlowGraph}
+     * Renders view
+     * @return GeneralView
      */
     render: function () {
         this.$el.empty();

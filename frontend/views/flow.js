@@ -17,13 +17,13 @@ var FlowGraph = Backbone.View.extend({
         this.title = options.title;
         this.width = options.width || 1200;
         this.height = options.height || 500;
-        this.numberFormatter = options.numberFormatter || d3.format(",.2f");
+        this.numberFormatter = options.numberFormatter || d3.format(',.2f');
         this.collection.on('flows:add', this.onAddFlows, this);
     },
 
     /**
      * Renders graph
-     * @returns {FlowGraph}
+     * @return FlowGraph
      */
     render: function () {
         this.$el.empty();
