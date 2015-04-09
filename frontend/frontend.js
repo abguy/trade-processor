@@ -12,6 +12,7 @@ var debug = debugModule('socket');
 
 $(function() {
     var GeneralView = require('./views/general.js');
+    var MapView = require('./views/map.js');
     var FlowGraph = require('./views/flow.js');
     var CurrenciesStore = require('./stores/currencies.js');
 
@@ -36,6 +37,14 @@ $(function() {
         model: currenciesStore
     });
     $('header').append(generalView.render().el);
+
+    var mapView =  new MapView({
+        title: 'Processed operations',
+        width: 750,
+        height: 450,
+        model: currenciesStore
+    });
+    $('body').append(mapView.render().el);
 
     var flowGraph = new FlowGraph({
         collection: currenciesStore.flowCollection,
