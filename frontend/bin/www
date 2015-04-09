@@ -137,7 +137,9 @@ function updateSocketData(socket, newData, initialData) {
     var fromRate = (config.lastRatesNumber > newData.batch)
         ? oldBatch
         : (config.lastRatesNumber > newData.batch - oldBatch ? 0 : config.lastRatesNumber - newData.batch + oldBatch);
-    ['GBP', 'EUR', 'CAD', 'AUD'].forEach(function(currency) {
+    ['GBP', 'USD', 'CAD', 'AUD'].forEach(function(currency) {
+        // todo@ rates are not implemented yet
+        return;
         if (!_.contains(initialData.currencies, currency)) {
             return;
         }
@@ -146,8 +148,10 @@ function updateSocketData(socket, newData, initialData) {
             if (rates.length < 1) {
                 return;
             }
+            var data = {};
+            data[currency] = rates;
             debug('Send rates to %s', socket.id);
-            socket.emit('message', { "rates": rates });
+            socket.emit('message', { "rates": data});
         });
     });
 
