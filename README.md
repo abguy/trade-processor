@@ -44,3 +44,4 @@ The system has to process these messages and display results in UI with a realti
 * [Frontend](frontend)
 * [Storage RESTful endpoint](storage)
 * [Consumer endpoint](consumer)
+* [Worker](worker)
