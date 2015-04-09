@@ -1,0 +1,16 @@
+batchSize: 5
+
+rabbitConnectionHeartbeat: 1000
+rabbitServer: "localhost"
+rabbitPort: 5671
+rabbitUser: "worker"
+rabbitPassword: "password"
+rabbitVhost: "/consumer"
+rabbitClientCert: "cert.pem"
+rabbitClientKeyPassPhrase: "PassPhrase"
+rabbitCaCert: "cacert.pem"
+
+storageUrl: "https://localhost:9443/"
+storageClientCert: "storage-client-01.crt"
+storageClientKey: "storage-client-01.key"
+storageCaCert: "storage-server-ca.crt"

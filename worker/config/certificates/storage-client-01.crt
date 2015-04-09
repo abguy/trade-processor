@@ -1,0 +1,91 @@
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=RU, ST=Novosibirsk, L=Novosibirsk, O=Alexey Belyaev, OU=Storage CA, CN=abelyaev.net/emailAddress=admin@abelyaev.net
+        Validity
+            Not Before: Apr  1 08:04:33 2015 GMT
+            Not After : Mar 31 08:04:33 2016 GMT
+        Subject: C=RU, ST=Novosibirsk, L=Novosibirsk, O=Alexey Belyaev, OU=Storage clients, CN=abelyaev.net/emailAddress=admin@abelyaev.net
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ec:0b:6b:09:b1:15:24:7a:b3:f9:d6:26:7d:56:
+                    39:26:f0:72:d9:24:18:e8:11:2a:b0:aa:82:46:11:
+                    4f:05:91:c0:1d:0e:10:0f:f3:fa:9f:9a:4a:da:d8:
+                    c3:75:02:f7:d6:43:d8:00:60:53:68:7b:0a:5b:e9:
+                    fc:71:f3:41:ab:00:79:77:01:ac:62:bc:97:69:ee:
+                    d5:c2:aa:18:e2:19:10:84:a0:c4:f3:b7:79:cb:b0:
+                    02:6a:ca:e1:39:e4:de:92:24:9f:cd:e2:86:70:9e:
+                    91:58:6d:f0:9f:44:8c:f3:54:1e:71:47:d7:a8:d3:
+                    af:39:41:4e:5c:36:51:bf:da:0c:88:0f:6e:0d:e5:
+                    78:6c:08:25:e5:3d:37:2b:a8:41:7e:1b:52:5b:08:
+                    1b:fa:23:31:a8:61:e7:18:91:93:17:fe:53:dd:84:
+                    70:33:4d:0d:dc:bf:62:ac:7a:0b:a2:44:30:92:fb:
+                    46:d0:69:e5:b7:ec:e0:24:89:ab:e9:d9:60:74:50:
+                    ba:38:b0:22:a7:54:12:5f:6f:68:a8:7d:19:88:b8:
+                    5d:b1:62:06:9b:94:36:68:3d:7e:6f:15:07:6c:30:
+                    4d:f5:b5:cf:72:7c:aa:3b:8c:6c:e1:fd:22:88:c6:
+                    93:b4:4d:b2:09:08:e0:31:b4:17:d5:14:83:a8:5c:
+                    e9:03
+                Exponent: 65537 (0x10001)
+    Signature Algorithm: sha1WithRSAEncryption
+         78:30:ae:75:d1:c3:2c:6b:a5:21:52:e5:bd:77:f3:b0:fc:53:
+         d5:85:1f:23:a0:cd:ab:3f:78:b1:19:c7:bb:b9:90:94:0a:59:
+         96:b9:73:a9:5e:bf:5e:1e:6a:5f:6b:7f:a5:7e:49:27:c1:d9:
+         dd:53:7e:07:fa:9d:11:c2:76:07:1d:1d:71:f5:a1:ca:36:5d:
+         00:7a:4a:15:94:e4:31:0f:b8:98:b4:55:ab:c9:a5:f4:44:6a:
+         9c:2c:cb:7b:1c:73:11:ff:d8:ba:30:e3:74:b5:58:87:d6:0d:
+         c8:93:5b:ca:5a:5e:47:c4:fc:d1:3f:c7:70:4a:6d:fb:59:90:
+         cf:78:f2:02:98:b0:fa:6f:3a:d1:6b:96:2a:70:df:82:e5:1c:
+         e0:1f:ac:9d:e5:6d:da:cb:ae:4e:84:07:22:ae:dd:69:4c:6b:
+         d5:09:04:14:fd:10:a0:eb:96:2d:e5:b3:d5:c5:af:8e:16:18:
+         16:e9:21:b2:5e:3e:5d:2b:74:b3:fb:f1:31:70:69:c1:8e:82:
+         0b:ee:87:c1:56:ca:6b:0b:89:27:4a:67:1d:82:cc:2a:6f:96:
+         dc:38:2f:5d:44:83:34:14:31:a1:08:f1:4a:c6:cb:a3:91:eb:
+         d2:42:30:9e:a4:cd:68:b6:9c:47:d8:51:9e:e3:cf:62:82:c0:
+         93:f7:3e:d8:a3:89:32:4a:f8:e5:12:5a:54:6c:78:63:2e:80:
+         f3:50:0b:7c:35:5d:08:85:86:c0:62:9f:b6:c2:20:38:a0:3b:
+         16:71:41:f3:8a:86:c8:e5:aa:42:0a:5c:ed:21:31:97:43:29:
+         51:9b:3d:ca:35:96:80:4e:c4:9b:f5:86:01:fd:8e:b6:5a:e3:
+         e0:f7:f5:38:7b:dd:e8:c5:f3:7b:fc:87:43:0e:64:99:7c:dc:
+         17:e3:27:46:df:87:6d:58:33:39:61:6e:1a:09:4c:76:39:47:
+         1d:56:4a:04:82:7e:ff:8b:5f:8f:2c:71:ca:95:c2:c1:76:d7:
+         60:e6:82:5d:91:18:21:b8:7c:48:e6:20:5e:cb:b9:38:ba:88:
+         a4:cc:de:09:e8:fc:ec:0f:f3:14:ed:2e:21:bd:ba:c3:0d:a9:
+         b8:f1:c8:88:44:4c:37:05:43:63:32:f4:6e:03:24:16:a2:fb:
+         eb:50:a6:d3:c3:ee:60:0f:69:5c:6e:8c:b1:39:05:88:a2:98:
+         f2:cb:cb:55:84:67:31:19:63:cb:ca:e0:c5:52:7d:7d:ca:be:
+         b6:78:db:fa:c8:99:c5:71:53:57:80:ab:c8:10:31:60:04:e1:
+         e0:21:6f:42:90:f7:d1:ea:47:5f:72:e1:a3:f1:8f:18:a2:22:
+         e1:5a:c4:97:d7:8f:e1:87
+-----BEGIN CERTIFICATE-----
+MIIEvTCCAqUCAQEwDQYJKoZIhvcNAQEFBQAwgaExCzAJBgNVBAYTAlJVMRQwEgYD
+VQQIDAtOb3Zvc2liaXJzazEUMBIGA1UEBwwLTm92b3NpYmlyc2sxFzAVBgNVBAoM
+DkFsZXhleSBCZWx5YWV2MRMwEQYDVQQLDApTdG9yYWdlIENBMRUwEwYDVQQDDAxh
+YmVseWFldi5uZXQxITAfBgkqhkiG9w0BCQEWEmFkbWluQGFiZWx5YWV2Lm5ldDAe
+Fw0xNTA0MDEwODA0MzNaFw0xNjAzMzEwODA0MzNaMIGmMQswCQYDVQQGEwJSVTEU
+MBIGA1UECAwLTm92b3NpYmlyc2sxFDASBgNVBAcMC05vdm9zaWJpcnNrMRcwFQYD
+VQQKDA5BbGV4ZXkgQmVseWFldjEYMBYGA1UECwwPU3RvcmFnZSBjbGllbnRzMRUw
+EwYDVQQDDAxhYmVseWFldi5uZXQxITAfBgkqhkiG9w0BCQEWEmFkbWluQGFiZWx5
+YWV2Lm5ldDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOwLawmxFSR6
+s/nWJn1WOSbwctkkGOgRKrCqgkYRTwWRwB0OEA/z+p+aStrYw3UC99ZD2ABgU2h7
+Clvp/HHzQasAeXcBrGK8l2nu1cKqGOIZEISgxPO3ecuwAmrK4Tnk3pIkn83ihnCe
+kVht8J9EjPNUHnFH16jTrzlBTlw2Ub/aDIgPbg3leGwIJeU9NyuoQX4bUlsIG/oj
+Mahh5xiRkxf+U92EcDNNDdy/Yqx6C6JEMJL7RtBp5bfs4CSJq+nZYHRQujiwIqdU
+El9vaKh9GYi4XbFiBpuUNmg9fm8VB2wwTfW1z3J8qjuMbOH9IojGk7RNsgkI4DG0
+F9UUg6hc6QMCAwEAATANBgkqhkiG9w0BAQUFAAOCAgEAeDCuddHDLGulIVLlvXfz
+sPxT1YUfI6DNqz94sRnHu7mQlApZlrlzqV6/Xh5qX2t/pX5JJ8HZ3VN+B/qdEcJ2
+Bx0dcfWhyjZdAHpKFZTkMQ+4mLRVq8ml9ERqnCzLexxzEf/YujDjdLVYh9YNyJNb
+ylpeR8T80T/HcEpt+1mQz3jyApiw+m860WuWKnDfguUc4B+sneVt2suuToQHIq7d
+aUxr1QkEFP0QoOuWLeWz1cWvjhYYFukhsl4+XSt0s/vxMXBpwY6CC+6HwVbKawuJ
+J0pnHYLMKm+W3DgvXUSDNBQxoQjxSsbLo5Hr0kIwnqTNaLacR9hRnuPPYoLAk/c+
+2KOJMkr45RJaVGx4Yy6A81ALfDVdCIWGwGKftsIgOKA7FnFB84qGyOWqQgpc7SEx
+l0MpUZs9yjWWgE7Em/WGAf2Otlrj4Pf1OHvd6MXze/yHQw5kmXzcF+MnRt+HbVgz
+OWFuGglMdjlHHVZKBIJ+/4tfjyxxypXCwXbXYOaCXZEYIbh8SOYgXsu5OLqIpMze
+Cej87A/zFO0uIb26ww2puPHIiERMNwVDYzL0bgMkFqL761Cm08PuYA9pXG6MsTkF
+iKKY8svLVYRnMRljy8rgxVJ9fcq+tnjb+siZxXFTV4CryBAxYATh4CFvQpD30epH
+X3Lho/GPGKIi4VrEl9eP4Yc=
+-----END CERTIFICATE-----

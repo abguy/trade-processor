@@ -1,4 +1,4 @@
-# Market Trade Processor Storage
+# Market Trade Processor Consumer
 
 Welcome to the Market Trade Processor Consumer subproject!
 
@@ -6,7 +6,7 @@ This subproject is a part of [Market Trade Processor project](https://github.com
 
 # Why Node.js?
 
-Consumer is built using Node.js v0.12.2. Perhaps Golang could show a better performance, but I'd like to check [Node.js cluster](https://nodejs.org/api/cluster.html). 
+Consumer is built using Node.js v0.12.2. Perhaps Golang could show a better performance but I'd like to check [Node.js cluster](https://nodejs.org/api/cluster.html). 
 
 # How to setup
 
@@ -49,7 +49,7 @@ There are some other tips/highlights below I used on my installation.
      {ssl_options, [{cacertfile,"/usr/local/rabbit/certs/cacert.pem"},
                     {certfile,"/usr/local/rabbit/server/cert.pem"},
                     {keyfile,"/usr/local/rabbit/server/key.pem"},
-                    {password, "ServerSuperPassword"},
+                    {password, "ServerSuperT0p$3kRe7Password"},
                     {depth, 2},
                     {verify,verify_peer},
                     {fail_if_no_peer_cert,false}]}

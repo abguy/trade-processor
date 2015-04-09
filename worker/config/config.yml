@@ -1,0 +1,15 @@
+batchSize: 10000
+
+rabbitConnectionHeartbeat: 1000
+rabbitServer: "rabbit.abelyaev.net"
+rabbitPort: 5671
+rabbitUser: "worker"
+rabbitPassword: "password"
+rabbitVhost: "/consumer"
+rabbitClientCert: "cert.pem"
+rabbitClientKeyPassPhrase: "PassPhrase"
+rabbitCaCert: "cacert.pem"
+
+storageUrl: "https://abelyaev.net:9443/"
+storageClientCert: "storage-client-01.pem"
+storageCaCert: "storage-server-ca.crt"

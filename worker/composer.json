@@ -1,0 +1,36 @@
+{
+    "name": "abguy/trade-processor-worker",
+    "description": "Market Trade Processor Worker",
+    "authors": [
+        {
+            "name": "Alexey Belyaev",
+            "email": "Alexey.V.Belyaev@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": "src/"}
+    },
+    "require": {
+        "php": ">=5.6",
+        "ext-intl": "*",
+        "ext-mbstring": "*",
+        "doctrine/annotations": "1.*",
+        "doctrine/cache": "1.*",
+        "symfony/stopwatch": "~2.6",
+        "symfony/console": "~2.6",
+        "symfony/yaml": "~2.6",
+        "symfony/intl": "~2.6",
+        "symfony/validator": "~2.6",
+        "videlalvaro/php-amqplib": "2.3.*",
+        "zendframework/zend-filter": "~2.4",
+        "zendframework/zend-validator": "~2.4",
+        "zendframework/zend-inputfilter": "~2.4",
+        "zendframework/zend-i18n": "~2.4",
+        "zendframework/zend-http": "~2.4"
+    },
+    "require-dev": {
+        "symfony/debug": "~2.6",
+        "phpunit/phpunit": "~4.6"
+    },
+    "minimum-stability": "stable"
+}
