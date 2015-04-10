@@ -41,7 +41,7 @@ The system has to process these messages and display results in UI with a realti
 
 ## Subsystems
 
-* [Frontend](frontend)
+* [Frontend](frontend), [Frontend demo](http://abelyaev.net/)
 * [Storage RESTful endpoint](storage)
 * [Consumer endpoint](consumer)
 * [Worker](worker)
