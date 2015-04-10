@@ -50,7 +50,7 @@ $(function() {
         collection: currenciesStore.flowCollection,
         title: 'Currencies flow graph',
         width: Math.max($(window).width() - 50, 500),
-        height: 600
+        height: 1200
     });
     $('body').append(flowGraph.render().el);
 });
