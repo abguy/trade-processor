@@ -12,6 +12,11 @@ var config = require(path.join(__dirname, 'config', 'config.json'))[env];
 
 var debug, debugModule = require('debug');
 
+// Increase the number of available sockets
+http.globalAgent.maxSockets = Infinity;
+var posix = require('posix');
+posix.setrlimit('nofile', { soft: 1048000 });
+
 if (cluster.isMaster) {
     config.logging && debugModule.enable('cluster');
     debug = debugModule('cluster');
