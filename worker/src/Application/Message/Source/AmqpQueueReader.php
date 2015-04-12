@@ -172,8 +172,13 @@ class AmqpQueueReader extends AbstractReader
      */
     protected function reconnect()
     {
-        $this->connection->reconnect();
-        $this->openChannel();
+        try {
+            $this->connection->reconnect();
+            $this->openChannel();
+        } catch (\PhpAmqpLib\Exception\AMQPRuntimeException $e) {
+            $this->connection = new AMQPSSLConnection(...$this->connectionParams);
+            $this->openChannel();
+        }
     }
 
     /**
