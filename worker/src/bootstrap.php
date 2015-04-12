@@ -17,7 +17,7 @@ php composer.phar install --no-dev
 
 MSG;
 
-    return;
+    exit(0);
 }
 
 $loader = include 'vendor/autoload.php';
