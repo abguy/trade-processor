@@ -1,8 +1,8 @@
 batchSize: 5
 
-rabbitConnectionHeartbeat: 1000
 rabbitServer: "localhost"
 rabbitPort: 5671
+rabbitConnectionTimeout: 300
 rabbitUser: "worker"
 rabbitPassword: "password"
 rabbitVhost: "/consumer"

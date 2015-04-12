@@ -3,6 +3,7 @@ namespace Application\Message;
 
 use Application\Message\Source\DataSourceInterface;
 use Application\Message\Source\ValidEntriesFilter;
+use Application\Message\Exception\TimeoutException;
 
 /**
  * Message aggregator object.
@@ -48,6 +49,14 @@ class Aggregator
      */
     public function run($maxBatchSize, $sources, Storage $storage, callable $lapCallback = null)
     {
+        $counter = 0;
+        $countries = $flows = [];
+        $timeoutHandler = function (TimeoutException $e) use (&$storage, &$counter, &$countries, &$flows) {
+            if ($counter > 0) {
+                $this->saveResults($storage, $counter, $countries, $flows);
+            }
+        };
+
         // Aggregate only valid entries => wrap all sources by ValidEntriesFilter source.
         $filteredSources = [];
         foreach($sources as $source) {
@@ -56,11 +65,16 @@ class Aggregator
 
         foreach($filteredSources as $source) {
             /** @var DataSourceInterface $source */
-            $sourceReader = function() use ($source) {
+            $sourceReader = function() use ($source, $timeoutHandler) {
                 yield null; // Make this yield for the first implicit rewind() call
                 $counter = 1;
                 while($source->valid()) {
-                    $entry = $source->next();
+                    try {
+                        $entry = $source->next();
+                    } catch (TimeoutException $e) {
+                        call_user_func($timeoutHandler, $e);
+                        continue;
+                    }
                     if (is_null($entry)) {
                         continue;
                     }
@@ -74,33 +88,17 @@ class Aggregator
             $this->executionQueue->enqueue($sourceReader());
         }
 
-        $counter = 0;
-        $countries = $flows = [];
-
         while ($this->valid()) {
 
             if ($counter >= $maxBatchSize) {
-                $result = [
-                    'messages' => $counter,
-                    'countries' => $countries,
-                    'flows' => array_values($flows),
-                ];
-
-                try {
-                    $storage->save($result);
-                } catch (\Exception $e) {
-                    // todo@ Add exception handling
-                    throw $e;
-                }
-
-                $counter = 0;
-                $countries = $flows = [];
+                $this->saveResults($storage, $counter, $countries, $flows);
             }
 
             /** @var \Generator $coroutine */
             $coroutine = $this->executionQueue->dequeue();
             /** @var Entry $entry */
             $entry = $coroutine->send($lapCallback);
+
             if (!is_null($entry)) {
                 $country =  $entry->getCountry();
                 if (isset($countries[$country])) {
@@ -129,5 +127,33 @@ class Aggregator
                 $this->executionQueue->enqueue($coroutine);
             }
         }
+    }
+
+    /**
+     * Save results in the storage and resets counters.
+     *
+     * @param Storage $storage
+     * @param $counter
+     * @param $countries
+     * @param $flows
+     * @throws \Exception
+     */
+    protected function saveResults(Storage $storage, &$counter, &$countries, &$flows)
+    {
+        $result = [
+            'messages' => $counter,
+            'countries' => $countries,
+            'flows' => array_values($flows),
+        ];
+
+        try {
+            $storage->save($result);
+        } catch (\Exception $e) {
+            // todo@ Add exception handling
+            throw $e;
+        }
+
+        $counter = 0;
+        $countries = $flows = [];
     }
 }

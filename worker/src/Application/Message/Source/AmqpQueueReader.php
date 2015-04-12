@@ -6,6 +6,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use Application\Message\Entry;
 use Application\Message\Exception\InvalidFormatException;
+use Application\Message\Exception\TimeoutException;
 
 /**
  * Message reader from RabbitMQ queue.
@@ -94,6 +95,7 @@ class AmqpQueueReader extends AbstractReader
     /**
      * Returns next portion of data.
      *
+     * @throws TimeoutException
      * @return Entry|null
      */
     public function next()
@@ -103,9 +105,13 @@ class AmqpQueueReader extends AbstractReader
         try  {
             $this->channel->wait(null, false, $this->timeout);
         } catch (\PhpAmqpLib\Exception\AMQPTimeoutException $e) {
-            // Connection is closed. Try to reconnect.
+            // Connection is closed. Try to reconnect and throw the exception further.
             $this->reconnect();
-            return null;
+            throw new TimeoutException(
+                sprintf('AMQP queue reading timeout: %s.', $e->getMessage()),
+                $e->getCode(),
+                $e
+            );
         }
         if (is_null($this->messageBody)) {
             throw new \RuntimeException('Unable to read the next message from the queue.');

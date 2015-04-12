@@ -2,6 +2,7 @@
 namespace Application\Message\Source;
 
 use Application\Message\Entry;
+use Application\Message\Exception\TimeoutException;
 
 /**
  * Data source interface
@@ -20,6 +21,7 @@ interface DataSourceInterface
     /**
      * Returns next portion of data.
      *
+     * @throws TimeoutException
      * @return Entry|null
      */
     public function next();
