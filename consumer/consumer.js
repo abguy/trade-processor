@@ -78,25 +78,36 @@ var currentChannelNumber = 0;
 var rabbitChannels = [];
 for (var i = 0; i < config.rabbitConnectionsPerWorker; i++) {
     rabbitChannels.push(
-        amqplib.connect(
-            'amqps://' + encodeURIComponent(config.rabbitUser) + ':'  + encodeURIComponent(config.rabbitPassword) +
-                '@' + config.rabbitServer + ':' + config.rabbitPort + '/' + encodeURIComponent(config.rabbitVhost),
-            opts
-        ).then(function(connection) {
-            return connection.createChannel().then(function(channel) {
-                return channel.assertQueue('messages', {
-                    exclusive: false,
-                    durable: true
-                }).then(function(queue) {
-                    return new Promise(function(resolve) {
-                        resolve(channel);
-                    });
-                });
-            });
-        }, function(err) {
-            console.error('Connect to the RabbitMQ failed: %s', err);
-        })
+        createRabbitChannel()
     );
+}
+
+function createRabbitChannel() {
+    return amqplib.connect(
+        'amqps://' + encodeURIComponent(config.rabbitUser) + ':'  + encodeURIComponent(config.rabbitPassword) +
+            '@' + config.rabbitServer + ':' + config.rabbitPort + '/' + encodeURIComponent(config.rabbitVhost),
+        opts
+    ).then(function(connection) {
+        return connection.createChannel().then(function(channel) {
+            return channel.assertQueue('messages', {
+                exclusive: false,
+                durable: true
+            }).then(function(queue) {
+                return new Promise(function(resolve) {
+                    resolve(channel);
+                });
+            }, function(error) {
+                debug('RabbitMQ queue erorr: %s', error);
+                process.exit(1);
+            });
+        }, function(error) {
+            debug('RabbitMQ channel erorr: %s', error);
+            process.exit(1);
+        });
+    }, function(error) {
+        debug('RabbitMQ connection error: %s', error);
+        process.exit(1);
+    });
 }
 
 function closerRabbitChannels() {
@@ -118,11 +129,23 @@ process.on('SIGINT', function() {
 cluster.worker.on('exit', closerRabbitChannels);
 process.on('exit', closerRabbitChannels);
 
+process.on('uncaughtException', function (error) {
+    debug('Uncaught exception: %s', error);
+    console.log(error.stack);
+    process.exit(1);
+}); 
 
 // Workers can share any TCP connection
 // In our case its a HTTP server
 var httpPort = parseInt(config.port, 10);
-http.createServer(function (request, response) {
+var server = http.createServer(function (request, response) {
+    request.on('error', function(error) {
+        debug('Problem with request: %s', error);
+    });
+    response.on('error', function(error) {
+        debug('Problem with response: %s', error);
+    });
+
     if ('POST' == request.method) {
         var body = null;
 
@@ -136,17 +159,30 @@ http.createServer(function (request, response) {
         });
 
         request.on('end', function () {
+            if (null === body) {
+                return;
+            }
             currentChannelNumber = (currentChannelNumber + 1) % config.rabbitConnectionsPerWorker;
             var channelPromise = rabbitChannels[currentChannelNumber];
             channelPromise.then(function(channel) {
+                if (!channel) {
+                    throw 'Channel does not exist';
+                }
                 channel.sendToQueue('messages', body, {
                     persistent: true // or deliveryMode: 2
                 });
+            }, function(error) {
+                debug('RabbitMQ channel error: %s. Try to reconnect...', error);
+                rabbitChannels[currentChannelNumber] = createRabbitChannel();
             });
         });
     }
     response.writeHead(204);
     response.end();
-}).listen(httpPort);
-
+});
+server.listen(httpPort);
 console.log('Listening on port ' + httpPort);
+
+server.on('clientError', function (exception, socket) {
+    debug('Problem with client: %s', exception);
+});
