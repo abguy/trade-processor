@@ -1,6 +1,7 @@
 <?php
 namespace Application\Message\Source;
 
+use PhpAmqpLib\Connection\AMQPSSLConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use Application\Message\Entry;
@@ -13,6 +14,24 @@ use Application\Message\Exception\InvalidFormatException;
  */
 class AmqpQueueReader extends AbstractReader
 {
+    /**
+     * AMQP connection params.
+     * @var array
+     */
+    protected $connectionParams;
+
+    /**
+     * AMQP connection timeout in seconds.
+     * @var int
+     */
+    protected $timeout;
+
+    /**
+     * AMQP connection
+     * @var AMQPSSLConnection
+     */
+    protected $connection;
+
     /**
      * AMQP channel
      * @var AMQPChannel
@@ -28,13 +47,25 @@ class AmqpQueueReader extends AbstractReader
 
     /**
      * Object constructor
-     * @param AMQPChannel $channel
+     * @param array $connection params
+     * @param int $timeout Timeout in seconds
      */
-    public function __construct(AMQPChannel $channel)
+    public function __construct(Array $connectionParams, $timeout)
     {
-        $this->channel = $channel;
-        $this->channel->basic_qos(null, 1, null); // Prefetch 1 message from the queue.
-        $this->channel->basic_consume('messages', '', false, false, false, false, [$this, 'onNewMessage']);
+        $this->connectionParams = $connectionParams;
+        $this->timeout = $timeout;
+
+        $this->connection = new AMQPSSLConnection(...$this->connectionParams);
+        $this->openChannel();
+    }
+
+    /**
+     * Object destructor
+     */
+    public function __destruct()
+    {
+        $this->channel->close();
+        $this->connection->close();
     }
 
     /**
@@ -69,7 +100,13 @@ class AmqpQueueReader extends AbstractReader
     {
         $this->messageBody = null;
 
-        $this->channel->wait();
+        try  {
+            $this->channel->wait(null, false, $this->timeout);
+        } catch (\PhpAmqpLib\Exception\AMQPTimeoutException $e) {
+            // Connection is closed. Try to reconnect.
+            $this->reconnect();
+            return null;
+        }
         if (is_null($this->messageBody)) {
             throw new \RuntimeException('Unable to read the next message from the queue.');
         }
@@ -122,5 +159,24 @@ class AmqpQueueReader extends AbstractReader
         }
 
         return static::parseEntryFromArray($data);
+    }
+
+    /**
+     * Creates new connection.
+     */
+    protected function reconnect()
+    {
+        $this->connection->reconnect();
+        $this->openChannel();
+    }
+
+    /**
+     * Opens the channel.
+     */
+    protected function openChannel()
+    {
+        $this->channel = $this->connection->channel();
+        $this->channel->basic_qos(null, 1, null); // Prefetch 1 message from the queue.
+        $this->channel->basic_consume('messages', '', false, false, false, false, [$this, 'onNewMessage']);
     }
 }

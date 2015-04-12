@@ -2,8 +2,6 @@
 namespace Application;
 
 use Symfony\Component\Yaml\Parser as YamlParser;
-use PhpAmqpLib\Connection\AMQPSSLConnection;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 /**
  * Main application configuration.
@@ -72,15 +70,15 @@ class Configuration
     }
 
     /**
-     * Creates AMQP connection for retrieving messages.
+     * Creates AMQP connection params for retrieving messages.
      *
-     * @return AMQPStreamConnection
+     * @return array
      */
-    public function getAmqpConnection()
+    public function getAmqpConnectionParams()
     {
         $certsDir = $this->getCertsDir();
 
-        return new AMQPSSLConnection(
+        return [
             $this->getOption('rabbitServer'),
             $this->getOption('rabbitPort'),
             $this->getOption('rabbitUser'),
@@ -93,7 +91,7 @@ class Configuration
                 'local_cert' => $certsDir . $this->getOption('rabbitClientCert'),
                 'passphrase' => $certsDir . $this->getOption('rabbitClientKeyPassPhrase'),
             ]
-        );
+        ];
     }
 
     /**
@@ -139,7 +137,7 @@ class Configuration
             );
         }
 
-        $requiredKeys = ['rabbitConnectionHeartbeat', 'rabbitServer', 'rabbitPort',
+        $requiredKeys = ['rabbitServer', 'rabbitPort', 'rabbitConnectionTimeout',
             'rabbitUser', 'rabbitPassword', 'rabbitVhost', 'storageCaCert',
             'rabbitClientCert', 'batchSize', 'rabbitClientKeyPassPhrase',
             'rabbitCaCert', 'storageUrl', 'storageClientCert',

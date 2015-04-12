@@ -1,8 +1,8 @@
-batchSize: 10000
+batchSize: 5000
 
-rabbitConnectionHeartbeat: 1000
 rabbitServer: "rabbit.abelyaev.net"
 rabbitPort: 5671
+rabbitConnectionTimeout: 300
 rabbitUser: "worker"
 rabbitPassword: "password"
 rabbitVhost: "/consumer"

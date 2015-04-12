@@ -114,14 +114,11 @@ EOF
         $dataSources = [];
 
         if (count($messageFiles) < 1) {
-            $connection = $this->configuration->getAmqpConnection();
-            $channel = $connection->channel();
-
-            $dataSources[] = new Message\Source\AmqpQueueReader($channel);
+            $dataSources[] = new Message\Source\AmqpQueueReader(
+                $this->configuration->getAmqpConnectionParams(),
+                $this->configuration->getOption('rabbitConnectionTimeout')
+            );
             $aggregator->run($batchSize, $dataSources, $storage, $lapCallback);
-
-            $channel->close();
-            $connection->close();
 
             return;
         }
