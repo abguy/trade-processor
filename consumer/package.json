@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "debug": "~2.1.1",
-    "amqplib": "~0.3.2"
+    "amqplib": "~0.3.2",
+    "posix": "~2.0.0"
   }
 }
