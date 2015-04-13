@@ -146,6 +146,18 @@ var server = http.createServer(function (request, response) {
         debug('Problem with response: %s', error);
     });
 
+    request.on('socket', function (socket) {
+        // disable connection timeout
+        socket.setTimeout(0);
+        // disable Nagle algorithm
+        socket.setNoDelay(true);
+
+        socket.on('timeout', function (exception, socket) {
+            debug('Socket timeout: %s', exception);
+        });
+    });
+
+    
     if ('POST' == request.method) {
         var body = null;
 
