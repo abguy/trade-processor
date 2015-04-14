@@ -7,6 +7,7 @@ It is a test project where we are going to build distributed system which is abl
 # Achievements
 
 Each consumer node is able to receive up to **4,2k messages per a second** in average. The overall processing time is about 1.5 minutes for 100k messages.
+
 A single consumer server can handle **360k concurent connections**. *Actually I have reached my limits of 20 AWS EC2 instances and was not able to create more requests.*
 
 You can find more additional details in the [tests subproject](tests).

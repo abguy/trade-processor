@@ -14,7 +14,7 @@ Perhaps Golang could show a better performance but I'd like to check [Node.js cl
 
 **Note**. The instruction below is suitable for CentOS only. Please check pm2 documentation for installation to other OSes.
 
-**Note 2**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server](https://github.com/abguy/trade-processor#how-to-tune-linux-server) section for details.
+**Note 2**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
 
 Before start of the application please:
 * install Node.js >= v0.12.2;

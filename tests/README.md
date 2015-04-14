@@ -21,9 +21,9 @@ scripts/exec.sh --force
 
 ## Advanced way
 
-[Apache Benchmark](httpd.apache.org/docs/2.2/programs/ab.html) is a very good tool, but it is limited to not more than 20k concurent connections. [Proof](http://mail-archives.apache.org/mod_mbox/httpd-dev/200403.mbox/%3Cs0582f22.041@prv-mail20.provo.novell.com%3E)
+[Apache Benchmark](httpd.apache.org/docs/2.2/programs/ab.html) is a very good tool, but it is limited to not more than 20k concurent connections. [proof](http://mail-archives.apache.org/mod_mbox/httpd-dev/200403.mbox/%3Cs0582f22.041@prv-mail20.provo.novell.com%3E)
 
-On the other hand ab is good enough. It is hard to imagine a better performance on a single server. Linux limits number of open sockets to 1024 by default, ab is able to open 20k concurent connections (of course after special tuning of your Linux machine).
+On the other hand ab is good enough. It is hard to imagine a better performance on a single server. Linux limits number of open sockets to 1024 by default, ab is able to open 20k concurent connections (of course after [special tuning of your Linux machine](https://github.com/abguy/trade-processor#how-to-tune-linux-server)).
 
 Perhaps some other tools like [JMeter](http://jmeter.apache.org/), [Siege](http://www.joedog.org/siege-home/), [Tsung](http://tsung.erlang-projects.org/user_manual/index.html) or [Yandex tank](https://github.com/yandex/yandex-tank) are better choice, but I've decided to use multiserver installation of Apache Benchmark. AB just does some very basic measurements and we don't need to build complex scenarios with extended reports. Thus it is good enough.
 
@@ -37,33 +37,42 @@ There were **no any load balancers** were used in my installation.
 
 ## Frontend server
 
+Configuration
 * 2 CPU cures, 750 Mb RAM.
 * Provider: [Rusonyx](http://www.rusonyx.ru/)
 
+Software
+* CentOS 6.5
 * [Frontend UI](https://github.com/abguy/trade-processor/blob/master/frontend)
 * Redis
 * [Storage RESTful endpoint](https://github.com/abguy/trade-processor/blob/master/storage)
 
 ## RabbitMQ server
 
+Configuration
 [Standard_D3](http://azure.microsoft.com/en-us/pricing/details/virtual-machines/): 4 CPU cures, 14 Gb RAM
 Provider: [Microsoft Azure](http://azure.microsoft.com/)
 
 ## Consumer server
 
+Configuration
 * [The cheapest "high volume plan"](https://www.digitalocean.com/pricing/): 8 CPU cures, 16 Gb RAM
 * Provider: [Digital ocean](https://www.digitalocean.com/)
 
+Software
+* CentOS 7 x64
 * [Consumer endpoint](https://github.com/abguy/trade-processor/blob/master/consumer)
 
 ## Worker servers
 
 There were 2 servers deployed:
 
+First server
 * [n1-highcpu-8](https://cloud.google.com/pricing/): 8 CPU cures, 7.2 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
 10 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
+Second server
 * [n1-highcpu-2](https://cloud.google.com/pricing/): 2 CPU cures, 1.8 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
 4 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
@@ -72,12 +81,15 @@ There were 2 servers deployed:
 
 18 AWS micto instances were used to emulate 360k concurrent requests.
 
+Configuration
 * [t2.micro](http://aws.amazon.com/ec2/pricing/): 1 CPU cure, 1 Gb RAM
 * Provider: [Amazon Web Services](http://aws.amazon.com/)
 
+Software
+* CentOS 7 x64
 * [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
 
-**Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server](https://github.com/abguy/trade-processor#how-to-tune-linux-server) section for details.
+**Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
 
 # Results
 
@@ -85,7 +97,7 @@ There were 2 servers deployed:
 
 Total time: **23.5 seconds**; Requests per second: **4,247**.
 
-**Note**. I've realized that the results depnends on the server location significantly. This test was made from the []Digital ocean](https://www.digitalocean.com/) server.
+**Note**. I've realized that the results depends on the server location significantly. This test was made from the []Digital ocean](https://www.digitalocean.com/) server.
 
 ![100k](https://raw.githubusercontent.com/abguy/trade-processor/master/images/100k.png)
 
