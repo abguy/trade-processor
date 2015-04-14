@@ -68,7 +68,6 @@ There were 2 servers deployed:
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
 4 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
-
 ## Test servers
 
 18 AWS micto instances were used to emulate 360k concurrent requests.
@@ -79,3 +78,35 @@ There were 2 servers deployed:
 * [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
 
 **Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server](https://github.com/abguy/trade-processor#how-to-tune-linux-server) section for details.
+
+# Results
+
+## 100k requests with 20k concurrency
+
+Total time: **23.5 seconds**; Requests per second: **4,247**.
+
+**Note**. I've realized that the results depnends on the server location significantly. This test was made from the []Digital ocean](https://www.digitalocean.com/) server.
+
+![100k](https://raw.githubusercontent.com/abguy/trade-processor/master/images/100k.png)
+
+## 1,800k requests with 360k concurrency
+
+Total time: **?? seconds**; Requests per second: **??**.
+
+**Note**. I've realized that the results depnends on the server location significantly.
+
+### Consumer server
+
+![consumer-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/consumer-top.png)
+
+![consumer-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/consumer-ss.png)
+
+### RabbitMQ server
+
+![rabbit-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/rabbit-top.png)
+
+![rabbit-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/rabbit-ss.png)
+
+### Frontend UI server
+
+![frontend-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/frontend-top.png)
