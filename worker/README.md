@@ -11,7 +11,7 @@ Modern PHP has an amazing number of different frameworks, libraries, components 
 PHP programs could be easily covered by tests.
 
 I've implemented the worker with validation, colorized console output, with ability to configure output verbosity level, etc.
-The result program is able to process 10k messages for less than a minute.  It needs  **~7 Mb of memory** for execution.      
+The result program is able to process **30k messages for less than a minute**.  It needs  **~7 Mb of memory** for execution.      
 Thus the result is good enough, I think. 
 
 ## Some other notes
@@ -54,10 +54,10 @@ or in order to have some output:
 You should use a tool for monitoring of workers. For example, you can use [forever CLI tool](https://github.com/foreverjs/forever) or [PM2](https://github.com/Unitech/PM2).
 I prefer PM2.
 
-    yum install npm
-    npm install pm2@latest -g
+    sudo yum install npm
+    sudo npm install pm2@latest -g
     for i in {1..2}; do pm2 start --interpreter=php -n worker$i -f -e logs/err$i.log -o logs/out$i.log worker.php -- -v --no-ansi; done
-    pm2 startup centos
+    sudo pm2 startup centos
 
 This command starts 2 worker processes, passes " -v" verbosity level to the worker application and disables it's ANSI output.
 Please use the number of processes depending on available CPUs (cluster mode).
