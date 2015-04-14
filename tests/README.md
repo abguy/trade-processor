@@ -77,3 +77,5 @@ There were 2 servers deployed:
 * Provider: [Amazon Web Services](http://aws.amazon.com/)
 
 * [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
+
+**Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server](https://github.com/abguy/trade-processor#how-to-tune-linux-server) section for details.
