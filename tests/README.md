@@ -70,12 +70,14 @@ There were 2 servers deployed:
 First server
 * [n1-highcpu-8](https://cloud.google.com/pricing/): 8 CPU cures, 7.2 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
-10 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
+* CentOS 7 x64
+* 10 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
 Second server
 * [n1-highcpu-2](https://cloud.google.com/pricing/): 2 CPU cures, 1.8 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
-4 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
+* CentOS 7 x64
+* 4 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
 ## Test servers
 
@@ -90,6 +92,8 @@ Software
 * [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
 
 **Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
+
+**Note 2**. ab often has a lot of failed connections if you use it from other datacenters. I think that it is because of network troubles.
 
 # Results
 
