@@ -256,7 +256,7 @@ RESTful endpoint</y:NodeLabel>
           <y:Geometry height="88.0772476196289" width="95.61650085449219" x="407.82794358995227" y="317.9227523803713"/>
           <y:Fill color="#CCCCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" configuration="CroppingLabel" fontFamily="Verdana" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="26.4453125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="94.1015625" x="0.7574691772460938" y="92.0772476196289">RabbitMQ</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" configuration="CroppingLabel" fontFamily="Verdana" fontSize="16" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="26.4453125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="161.2109375" x="-32.797218322753906" y="92.0772476196289">RabbitMQ cluster</y:NodeLabel>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="custom" textColor="#000000" visible="true" width="4.0" x="45.808250427246094" y="42.03862380981445">
             <y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -504,7 +504,6 @@ RESTful endpoint</y:NodeLabel>
       </data>
     </edge>
     <edge id="e15" source="n10" target="n5">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>

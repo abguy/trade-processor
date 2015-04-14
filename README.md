@@ -29,7 +29,7 @@ The system has to process these messages and display results in UI with a realti
 
 ## Overall architecture
 
-![Market Trade Processor architecture](http://abelyaev.net/img/trade-processor-architecture.png)
+![Market Trade Processor architecture](https://raw.githubusercontent.com/abguy/trade-processor/master/images/architecture.png)
 
 ## Security notes
 
@@ -45,3 +45,4 @@ The system has to process these messages and display results in UI with a realti
 * [Storage RESTful endpoint](storage)
 * [Consumer endpoint](consumer)
 * [Worker](worker)
+* [Tests](tests)

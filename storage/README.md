@@ -10,16 +10,16 @@ This subproject is a part of [Market Trade Processor project](https://github.com
 
 Before start of the application please check "config/config.json", then execute:
 
-    npm install pm2 -g
-    npm install
+    sudo npm install pm2 -g
+    sudo npm install
     pm2 start storage-api.js
-    pm2 startup centos
+    sudo pm2 startup centos
 
 Then configure [Nginx](http://nginx.org/) server.
 
-    cp -f nginx_conf/storage.conf /etc/nginx/sites-available/
-    cp -R nginx_conf/certificates /etc/nginx/
-    service nginx restart
+    sudo cp -f nginx_conf/storage.conf /etc/nginx/sites-available/
+    sudo cp -R nginx_conf/certificates /etc/nginx/
+    sudo service nginx restart
 
 **Note**. You should upload to a server the following certificates only (!):
 
