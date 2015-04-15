@@ -6,7 +6,7 @@ This subproject is a part of [Market Trade Processor project](https://github.com
 
 # How to setup
 
-**Note**. The instruction below is suitable for CentOS only. Please check Nginx and pm2 documentation for installation to other OSes.
+**Note**. The instruction below is suitable for CentOS only. Please check [Nginx](http://nginx.org/) and [PM2](https://github.com/Unitech/pm2) documentation for installation to other OSes.
 
 Before start of the application please check "config/config.json", then execute:
 

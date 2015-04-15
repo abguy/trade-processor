@@ -2,15 +2,23 @@
 
 Welcome to the Market Trade Processor project!
 
-It is a test project where we are going to build distributed system which is able to process a huge number of messages in real time.
+It is a test project where I am going to build a distributed system which is able to process a huge number of messages in real time.
+
+## Subsystems
+
+* [Frontend](frontend), [Frontend demo](http://abelyaev.net/)
+* [Storage RESTful endpoint](storage)
+* [Consumer endpoint](consumer)
+* [Worker](worker)
+* [Tests](tests)
 
 # Achievements
 
-Each consumer node is able to receive up to **4,2k messages per a second** in average. The overall processing time is about 1.5 minutes for 100k messages.
+Each consumer node is able to receive up to **4,2k messages per a second** in average. The overall processing time is about 1.5 minutes for 100k messages (including aggregation and delivering to the frontend UI).
 
-A single consumer server can handle **360k concurent connections**. *Actually I have reached my limits of 20 AWS EC2 instances and was not able to create more requests.*
+A single consumer server can handle **1 million concurent connections**. *Actually I am going to increase my limits of 50 AWS EC2 and try to create 10 millions(!) concurrent connections.*
 
-You can find more additional details in the [tests subproject](tests).
+You can find more additional details in the [tests subproject](tests#results).
 
 # An idea behind
 
@@ -38,14 +46,6 @@ The system has to process these messages and display results in UI with a realti
 ## Overall architecture
 
 ![Market Trade Processor architecture](https://raw.githubusercontent.com/abguy/trade-processor/master/images/architecture.png)
-
-## Subsystems
-
-* [Frontend](frontend), [Frontend demo](http://abelyaev.net/)
-* [Storage RESTful endpoint](storage)
-* [Consumer endpoint](consumer)
-* [Worker](worker)
-* [Tests](tests)
 
 ## How to tune Linux server
 
@@ -114,6 +114,16 @@ sysctl -p
 2. Unfortunately I have no valid (not self signed) SSL certificates. Thats why the "Message Consumption" entry point is not secured as well as the "Frontend UI" entry point.
 
 3. All other interactions between components have to be secured with SSL.
+
+## Other notes
+
+1. I think that the system should use [HTTP2](http://en.wikipedia.org/wiki/HTTP/2) for better performance, but there are too few cliens support it yet.
+
+2. You should use something like [HAProxy](http://www.haproxy.org/) before consumer nodes for production. Your system has to be robustness in case of hardware failures.
+
+3. A production ready system must have a failure detector in order to restore functionality quickly.
+
+4. My installation is configured with 1 minute delays before messages will be delivered to the frontend UI. This value could be changed easily depending from the expected loading. Moreover this value could be changed dinamically.
 
 # Contacts
 

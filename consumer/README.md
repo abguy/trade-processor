@@ -32,15 +32,20 @@ Before start of the application please:
 ## How to configure RabbitMQ server
 
 The most of necessary information you could find in the [RabbitMQ documentation](http://www.rabbitmq.com/install-rpm.html).
-There are some other tips below I used on my installation.
+There are some tips below I used on my installation.
 
 ### RabbitMQ user permissions
 
-    rabbitmqctl add_user consumer password
-    rabbitmqctl delete_user guest
-    rabbitmqctl add_vhost /consumer
-    rabbitmqctl set_permissions -p /consumer consumer "^messages" ".*" ".*"
+```bash
+rabbitmqctl add_user consumer password4consumer
+rabbitmqctl delete_user guest
+rabbitmqctl add_vhost /consumer
+rabbitmqctl set_permissions -p /consumer consumer "^messages" ".*" ".*"
 
+rabbitmqctl add_user worker password4worker
+rabbitmqctl set_permissions -p /consumer worker "^messages" "" ".*"
+```
+    
 ### RabbitMQ config
 
 ~~~

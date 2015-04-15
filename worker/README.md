@@ -8,7 +8,7 @@ This subproject is a part of [Market Trade Processor project](https://github.com
 
 Perhaps it is not the best solution but it is good enough for [our purpose](https://github.com/abguy/trade-processor). 
 Modern PHP has an amazing number of different frameworks, libraries, components and so on.
-PHP programs could be easily covered by tests.
+PHP programs also could be easily covered by tests.
 
 I've implemented the worker with validation, colorized console output, with ability to configure output verbosity level, etc.
 The result program is able to process **30k messages for less than a minute**.  It needs  **~7 Mb of memory** for execution.      
@@ -69,7 +69,7 @@ Once apps are started you can list and manage all running processes easily:
 pm2 list
 ```
 
-![Process listing](https://github.com/unitech/pm2/raw/master/pres/pm2-list.png)
+![Process listing](https://raw.githubusercontent.com/unitech/pm2/master/pres/pm2-list.png)
 
 Monitoring all processes launched:
 
@@ -77,7 +77,7 @@ Monitoring all processes launched:
 pm2 monit
 ```
 
-![Monit](https://github.com/unitech/pm2/raw/master/pres/pm2-monit.png)
+![Monit](https://raw.githubusercontent.com/unitech/pm2/master/pres/pm2-monit.png)
 
 
 # Advanced usage
@@ -98,7 +98,6 @@ List of additional options:
 
 List of supported commands:
 
-    php worker.php
     php worker.php list
     php worker.php help
 
@@ -112,7 +111,7 @@ You could specify additional levels of verbosity:
 
 #How to test
 
-Before executing of unit tests please install development dependencies as it was described above.
+Before executing of unit tests please install development dependencies as it was described [above](#how-to-setup).
 After that you could run tests by the following command:
 
     vendor/bin/phpunit

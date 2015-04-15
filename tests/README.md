@@ -4,41 +4,18 @@ Welcome to the Market Trade Processor Tests subproject!
 
 This subproject is a part of [Market Trade Processor project](https://github.com/abguy/trade-processor).
 
-# General idea
+# Configuration
 
 How to test the system properly? If your server is able to process thousand requests per a second it is not an easy task.
 
-## Simple way
-
-I've prepared a little script for testing with ab. You can find it in `scripts` directory.
-
-```bash
-scripts/exec.sh
-scripts/exec.sh --force
-```    
-
-**Note:** Make sure that you apply your parameters at the begining of `scripts/exec.sh`.
-
-## Advanced way
-
-[Apache Benchmark](httpd.apache.org/docs/2.2/programs/ab.html) is a very good tool, but it is limited to not more than 20k concurent connections. [proof](http://mail-archives.apache.org/mod_mbox/httpd-dev/200403.mbox/%3Cs0582f22.041@prv-mail20.provo.novell.com%3E)
-
-On the other hand ab is good enough. It is hard to imagine a better performance on a single server. Linux limits number of open sockets to 1024 by default, ab is able to open 20k concurent connections (of course after [special tuning of your Linux machine](https://github.com/abguy/trade-processor#how-to-tune-linux-server)).
-
-Perhaps some other tools like [JMeter](http://jmeter.apache.org/), [Siege](http://www.joedog.org/siege-home/), [Tsung](http://tsung.erlang-projects.org/user_manual/index.html) or [Yandex tank](https://github.com/yandex/yandex-tank) are better choice, but I've decided to use multiserver installation of Apache Benchmark. AB just does some very basic measurements and we don't need to build complex scenarios with extended reports. Thus it is good enough.
-
-How to distribute our installation of AB? [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns) is the answer. It is is *“An utility for arming (creating) many bees (micro EC2 instances) to attack (load test) targets (web applications)”*. In other words it simulates traffic originating from several different sources to hit the target. Each source is a “bee” which is an EC2 micro instance, which will load test the target using Apache’s ab.
-
-# Configuration
-
-In order to make our system really distributed I've setup test servers in different data centers. Moreover, I made them at different hosting providers.
+In order to make our system really distributed I've setup test servers in different data centers. Moreover, I made them at different hosting providers. It is just for test. If you want to have the best performance you should use servers from a single datacenter definetly.
 
 There were **no any load balancers** were used in my installation.
 
 ## Frontend server
 
 Configuration
-* 2 CPU cures, 750 Mb RAM.
+* 2 CPU cores, 750 Mb RAM.
 * Provider: [Rusonyx](http://www.rusonyx.ru/)
 
 Software
@@ -50,13 +27,18 @@ Software
 ## RabbitMQ server
 
 Configuration
-[Standard_D3](http://azure.microsoft.com/en-us/pricing/details/virtual-machines/): 4 CPU cures, 14 Gb RAM
+[Standard_D3](http://azure.microsoft.com/en-us/pricing/details/virtual-machines/): 4 CPU cores, 14 Gb RAM
 Provider: [Microsoft Azure](http://azure.microsoft.com/)
+
+Software
+* CentOS 7 x64
+* [RabbitMQ 3.5.1](https://www.rabbitmq.com/)
+* [RabbitMQ configuration](https://github.com/abguy/trade-processor/tree/master/consumer#how-to-configure-rabbitmq-server)
 
 ## Consumer server
 
 Configuration
-* [The cheapest "high volume plan"](https://www.digitalocean.com/pricing/): 8 CPU cures, 16 Gb RAM
+* [The cheapest "high volume plan"](https://www.digitalocean.com/pricing/): 8 CPU cores, 16 Gb RAM
 * Provider: [Digital ocean](https://www.digitalocean.com/)
 
 Software
@@ -68,32 +50,43 @@ Software
 There were 2 servers deployed:
 
 First server
-* [n1-highcpu-8](https://cloud.google.com/pricing/): 8 CPU cures, 7.2 Gb RAM
+* [n1-highcpu-8](https://cloud.google.com/pricing/): 8 CPU cores, 7.2 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
 * CentOS 7 x64
 * 10 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
 Second server
-* [n1-highcpu-2](https://cloud.google.com/pricing/): 2 CPU cures, 1.8 Gb RAM
+* [n1-highcpu-2](https://cloud.google.com/pricing/): 2 CPU cores, 1.8 Gb RAM
 * Provider: [Google Cloud Platform](https://cloud.google.com/)
 * CentOS 7 x64
 * 4 [worker](https://github.com/abguy/trade-processor/blob/master/worker) processes.
 
-## Test servers
+# Tests
 
-18 AWS micto instances were used to emulate 360k concurrent requests.
+## Simple way
 
-Configuration
-* [t2.micro](http://aws.amazon.com/ec2/pricing/): 1 CPU cure, 1 Gb RAM
-* Provider: [Amazon Web Services](http://aws.amazon.com/)
+I've prepared a little script for testing with [Apache Benchmark](http://httpd.apache.org/docs/current/programs/ab.html). You can find it in `scripts` directory.
 
-Software
-* CentOS 7 x64
-* [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
+```bash
+scripts/exec.sh
+scripts/exec.sh --force
+```    
 
-**Note**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
+**Note:** Make sure that you apply your parameters at the begining of `scripts/exec.sh`.
 
-**Note 2**. ab often has a lot of failed connections if you use it from other datacenters. I think that it is because of network troubles.
+## Advanced way
+
+[Apache Benchmark](http://httpd.apache.org/docs/current/programs/ab.html) is a very good tool, but it is limited to not more than 20k concurent connections. [proof](http://mail-archives.apache.org/mod_mbox/httpd-dev/200403.mbox/%3Cs0582f22.041@prv-mail20.provo.novell.com%3E)
+
+On the other hand ab is good enough. It is hard to imagine a better performance on a single server. Linux limits number of open sockets to 1024 by default, ab is able to open 20k concurent connections (of course after [special tuning of your Linux machine](https://github.com/abguy/trade-processor#how-to-tune-linux-server)).
+
+Perhaps some other tools like [JMeter](http://jmeter.apache.org/), [Siege](http://www.joedog.org/siege-home/), [Tsung](http://tsung.erlang-projects.org/user_manual/index.html) or [Yandex tank](https://github.com/yandex/yandex-tank) are better choice, but I've decided to use multiserver installation of Apache Benchmark. AB just does some very basic measurements and we don't need to build complex scenarios with extended reports. Thus it is good enough.
+
+How to distribute our installation of AB? [Bees with Machine Guns](https://github.com/newsapps/beeswithmachineguns) is the answer. It is is *“An utility for arming (creating) many bees (micro EC2 instances) to attack (load test) targets (web applications)”*. In other words it simulates traffic originating from several different sources to hit the target. Each source is a “bee” which is an EC2 micro instance, which will load test the target using Apache’s ab.
+
+## Note
+
+ab often has a lot of failed connections if you use it from other datacenters. On the other hand I have never seen ab errors when I execute it in a local network with a consumer server. I think that it is because of network troubles.
 
 # Results
 
@@ -101,15 +94,31 @@ Software
 
 Total time: **23.5 seconds**; Requests per second: **4,247**.
 
-**Note**. I've realized that the results depends on the server location significantly. This test was made from the []Digital ocean](https://www.digitalocean.com/) server.
+**Note**. I've realized that the results depends on the server location significantly. This test was made from the [Digital ocean](https://www.digitalocean.com/) server.
+
+**Note 2**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
+
+Test node configuration
+* [The cheapest](https://www.digitalocean.com/pricing/): 1 CPU core, 512 Mb RAM
+* Provider: [Digital ocean](https://www.digitalocean.com/)
 
 ![100k](https://raw.githubusercontent.com/abguy/trade-processor/master/images/100k.png)
 
-## 1,800k requests with 360k concurrency
+## 2,000k requests with 360k concurrency
 
-Total time: **?? seconds**; Requests per second: **??**.
+Total time: **25 minutes 4 seconds**; Requests per second: **1329**.
 
-**Note**. I've realized that the results depnends on the server location significantly.
+### Hive configuration
+
+18 AWS micto instances were used to emulate 360k concurrent requests.
+
+Configuration
+* [t2.micro](http://aws.amazon.com/ec2/pricing/): 1 CPU core, 1 Gb RAM
+* Provider: [Amazon Web Services](http://aws.amazon.com/)
+
+Software
+* CentOS 7 x64
+* [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
 
 ### Consumer server
 
