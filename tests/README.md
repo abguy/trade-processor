@@ -102,6 +102,10 @@ Test node configuration
 * [The cheapest](https://www.digitalocean.com/pricing/): 1 CPU core, 512 Mb RAM
 * Provider: [Digital ocean](https://www.digitalocean.com/)
 
+Software
+* CentOS 7 x64
+* [Apache Benchmark](http://httpd.apache.org/docs/current/programs/ab.html)
+
 ![100k](https://raw.githubusercontent.com/abguy/trade-processor/master/images/100k.png)
 
 ## 2,000k requests with 360k concurrency
@@ -110,15 +114,15 @@ Total time: **25 minutes 4 seconds**; Requests per second: **1329**.
 
 ### Hive configuration
 
-18 AWS micto instances were used to emulate 360k concurrent requests.
+18 AWS micto instances were used to emulate 360k concurrent requests. *Each of 18 bees will fire 111111 rounds, 20000 at a time.*
 
-Configuration
+Test node configuration
 * [t2.micro](http://aws.amazon.com/ec2/pricing/): 1 CPU core, 1 Gb RAM
 * Provider: [Amazon Web Services](http://aws.amazon.com/)
 
 Software
 * CentOS 7 x64
-* [Tests](https://github.com/abguy/trade-processor/blob/master/tests)
+* [Apache Benchmark](http://httpd.apache.org/docs/current/programs/ab.html)
 
 ### Consumer server
 
@@ -135,3 +139,35 @@ Software
 ### Frontend UI server
 
 ![frontend-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/frontend-top.png)
+
+## 2,000k requests with 1,000k concurrency
+
+Total time: **51 minutes 49 seconds**; Requests per second: **643**. *Each of 50 bees will fire 40000 rounds, 20000 at a time.*
+
+### Hive configuration
+
+50 AWS micto instances were used to emulate 1 million concurrent requests.
+
+Test node configuration
+* [t2.micro](http://aws.amazon.com/ec2/pricing/): 1 CPU core, 1 Gb RAM
+* Provider: [Amazon Web Services](http://aws.amazon.com/)
+
+Software
+* CentOS 7 x64
+* [Apache Benchmark](http://httpd.apache.org/docs/current/programs/ab.html)
+
+### Consumer server
+
+![consumer-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-consumer-top.png)
+
+![consumer-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-consumer-ss.png)
+
+### RabbitMQ server
+
+![rabbit-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-rabbit-top.png)
+
+![rabbit-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-rabbit-ss.png)
+
+### Frontend UI server
+
+![frontend-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-frontend.png)
