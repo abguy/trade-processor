@@ -16,8 +16,8 @@ Thus the result is good enough, I think.
 
 ## Some other notes
 
-I have had a desire to learn coroutines which became available in the last PHP versions. 
-Despite the fact that there were no evident needs to use coroutines for this project I used an opportunity to learn them in my application.
+I had a desire to learn coroutines which became available in the last PHP versions. 
+Despite the fact that the using of coroutines for this project is quite controversial decision I used an opportunity to learn them.
 
 Thus, the worker has an ability to process multiple csv files simultaneously via "cooperative multitasking".
 It means that messages are aggregated in "parallel" processes.

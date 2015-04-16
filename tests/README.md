@@ -99,7 +99,7 @@ Total time: **23.5 seconds**; Requests per second: **4,247**.
 **Note 2**. Make sure that your servers are able to open the necessary number of connections. Please check [How to tune Linux server section](https://github.com/abguy/trade-processor#how-to-tune-linux-server) for details.
 
 Test node configuration
-* [The cheapest](https://www.digitalocean.com/pricing/): 1 CPU core, 512 Mb RAM
+* [The cheapest plan](https://www.digitalocean.com/pricing/): 1 CPU core, 512 Mb RAM
 * Provider: [Digital ocean](https://www.digitalocean.com/)
 
 Software
