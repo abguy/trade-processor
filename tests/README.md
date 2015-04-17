@@ -183,3 +183,39 @@ Software
 ### Frontend UI server
 
 ![frontend-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/1m-frontend.png)
+
+# 10 millions concurrent connections
+
+Actually for such large numbers you should make some tricks:
+
+1. Increase the maximum number of open file descriptors.
+
+    ```bash
+    echo 20000500 > /proc/sys/fs/nr_open
+    ulimit -n 20000500
+    ulimit -S -n 20000500
+    ```
+
+2. Increase `fs.file-max` in `/etc/sysctl.conf`.
+
+3. Increase posix 'nofile' limit in consumer.js
+
+4. Prepare the hive with 500 bees. 
+    * Your subnet has to have more than 500 IPs.
+    * You also should have ~6Gb RAM for your "Bees with Machine Guns" management node.
+
+5. Exec
+    
+![10M-bees](https://raw.githubusercontent.com/abguy/trade-processor/master/images/10m-bees.png)
+
+... and wait till your server die :)
+
+I have tried several times, but my server processes were killed with unknown reason.
+
+![10M-bees](https://raw.githubusercontent.com/abguy/trade-processor/master/images/10m-consumer-killed.png)
+
+Actually I've realized that I just need more than 16Gb RAM to handle 10 million concurrent connections. My server ran out of RAM with ~1.7M concurrent connections.
+    
+![consumer-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/2m-consumer-top.png)
+
+![consumer-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/2m-consumer-ss.png)
