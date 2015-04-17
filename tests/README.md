@@ -152,7 +152,7 @@ Software
 
 ![frontend-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/frontend-top.png)
 
-## 2,000k requests with 1,000k concurrency
+## 2M requests with 1M concurrency
 
 Total time: **51 minutes 49 seconds**; Requests per second: **643**. *Each of 50 bees will fire 40000 rounds, 20000 at a time.*
 
@@ -202,7 +202,7 @@ Actually for such large numbers you should make some tricks:
 
 4. Prepare the hive with 500 bees. 
     * Your subnet has to have more than 500 IPs.
-    * You also should have ~6Gb RAM for your "Bees with Machine Guns" management node.
+    * You also should have ~4Gb RAM for your hive management node.
 
 5. Exec
     
@@ -219,3 +219,6 @@ Actually I've realized that I just need more than 16Gb RAM to handle 10 million 
 ![consumer-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/2m-consumer-top.png)
 
 ![consumer-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/2m-consumer-ss.png)
+
+
+[Lessons learned](https://github.com/abguy/trade-processor#lessons-learned)

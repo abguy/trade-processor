@@ -122,8 +122,14 @@ In order to increase these limits you may execute (e.g. for CentOS 7):
 
 4. My installation is configured with 1 minute delays before messages will be delivered to the frontend UI. This value could be changed easily depending from the expected loading. Moreover this value could be changed dinamically.
 
+# Lessons learned
+
+New Node.js cluster is awesome. It properly utilizes all CPU cores you have. On the other hand it's master process is still a bottleneck, particularly if your worker process are very lightweight and fast.
+
+The most optimal number in my case is **~25k concurrent requests** for a single consumer server. I think that these numbers could be different for other projects.
+
+Hope you have a fantastic day!
+
 # Contacts
 
 If you have questions you could reach me at A.V.Belyaev at gmail.
-
-Hope you have a fantastic day!
