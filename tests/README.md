@@ -108,6 +108,18 @@ Software
 
 ![100k](https://raw.githubusercontent.com/abguy/trade-processor/master/images/100k.png)
 
+### Consumer server
+
+![consumer-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/20k-consumer-top.png)
+
+![consumer-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/20k-consumer-ss.png)
+
+### RabbitMQ server
+
+![rabbit-top](https://raw.githubusercontent.com/abguy/trade-processor/master/images/20k-rabbit-top.png)
+
+![rabbit-ss](https://raw.githubusercontent.com/abguy/trade-processor/master/images/20k-rabbit-ss.png)
+
 ## 2,000k requests with 360k concurrency
 
 Total time: **25 minutes 4 seconds**; Requests per second: **1329**.
