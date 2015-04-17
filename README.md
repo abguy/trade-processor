@@ -73,21 +73,18 @@ In order to increase these limits you may execute (e.g. for CentOS 7):
     # General gigabit tuning:
     net.core.rmem_max = 16777216
     net.core.wmem_max = 16777216
-    net.ipv4.tcp_rmem = 16384 174760 16777216
-    net.ipv4.tcp_wmem = 16384 131072 16777216
+    net.ipv4.tcp_rmem = 102496 174760 16777216
+    net.ipv4.tcp_wmem = 102496 174760 16777216
+    net.ipv4.tcp_moderate_rcvbuf=0
     net.ipv4.tcp_syncookies = 1
     net.ipv4.ip_local_port_range = 16384 65535
 
     # this gives the kernel more memory for tcp
     # which you need with many (100k+) open socket connections
-    net.ipv4.tcp_mem = 50576   64768   98152
+    net.ipv4.tcp_mem = 1572864 1835008 2303190
     net.core.netdev_max_backlog = 2500
-
-    net.ipv4.tcp_mem=1572864 1835008 2097152
     net.ipv4.tcp_max_syn_backlog=524288 
     net.ipv4.tcp_max_orphans=262144  
-
-    net.ipv4.tcp_mem = 262144 524288 1048576
     net.ipv4.tcp_max_tw_buckets = 65536
     net.ipv4.tcp_tw_recycle = 1
     net.ipv4.tcp_tw_reuse = 0
