@@ -132,4 +132,4 @@ Hope you have a fantastic day!
 
 # Contacts
 
-If you have questions you could reach me at A.V.Belyaev at gmail.
+If you have questions you could reach me at Alexey.V.Belyaev at gmail.com
