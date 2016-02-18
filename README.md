@@ -6,7 +6,7 @@ It is a test project where I am going to build a distributed system which is abl
 
 ## Subsystems
 
-* [Frontend](frontend), [Frontend demo](http://abelyaev.net/)
+* [Frontend](frontend)
 * [Storage RESTful endpoint](storage)
 * [Consumer endpoint](consumer)
 * [Worker](worker)
