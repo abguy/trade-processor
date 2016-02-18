@@ -16,7 +16,7 @@ It is a test project where I am going to build a distributed system which is abl
 
 Each consumer node is able to receive up to **4,2k messages per a second** in average. The overall processing time is about 1.5 minutes for 100k messages (including aggregation and delivering to the frontend UI).
 
-A single consumer server can handle more than **1 million concurent connections**. Moreover I have made an experiment with [10 millions(!) concurrent connections](test#10-millions-concurrent-connections). 
+A single consumer server can handle more than **1 million concurent connections**. Moreover I have made an experiment with [10 millions(!) concurrent connections](tests#10-millions-concurrent-connections). 
 
 You can find more additional details in the [tests subproject](tests#results).
 
