@@ -16,7 +16,7 @@ usage()
 {
 	cat >&2 <<EOT
 Usage: exec.sh [--force]
-  --force       - Don't make pase after each call
+  --force       - Don't make pause after each call
 EOT
 	exit 2
 }
